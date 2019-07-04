@@ -1,13 +1,13 @@
-#ifndef FusionEKF_H_
-#define FusionEKF_H_
+#ifndef FusionEKF_HPP_
+#define FusionEKF_HPP_
 
 #include <fstream>
 #include <string>
 #include <vector>
 #include "Eigen/Dense"
-#include "kalman_filter.h"
-#include "measurement_package.h"
-#include "tools.h"
+#include "kalman_filter.hpp"
+#include "measurement_package.hpp"
+#include "tools.hpp"
 
 class FusionEKF {
  public:
@@ -46,4 +46,4 @@ class FusionEKF {
   Eigen::MatrixXd Hj_;
 };
 
-#endif // FusionEKF_H_
+#endif // FusionEKF_HPP_

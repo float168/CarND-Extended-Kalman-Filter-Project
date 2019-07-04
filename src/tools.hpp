@@ -1,5 +1,5 @@
-#ifndef TOOLS_H_
-#define TOOLS_H_
+#ifndef TOOLS_HPP_
+#define TOOLS_HPP_
 
 #include <vector>
 #include "Eigen/Dense"
@@ -29,4 +29,4 @@ class Tools {
 
 };
 
-#endif  // TOOLS_H_
+#endif  // TOOLS_HPP_

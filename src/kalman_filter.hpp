@@ -1,5 +1,5 @@
-#ifndef KALMAN_FILTER_H_
-#define KALMAN_FILTER_H_
+#ifndef KALMAN_FILTER_HPP_
+#define KALMAN_FILTER_HPP_
 
 #include "Eigen/Dense"
 
@@ -65,4 +65,4 @@ class KalmanFilter {
   Eigen::MatrixXd R_;
 };
 
-#endif // KALMAN_FILTER_H_
+#endif // KALMAN_FILTER_HPP_
