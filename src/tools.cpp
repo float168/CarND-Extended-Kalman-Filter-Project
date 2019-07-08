@@ -36,6 +36,9 @@ VectorXd Tools::CalculateRMSE(const vector<VectorXd> &estimations,
 
 MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
     MatrixXd Hj(3, 4);
+    Hj << 0, 0, 0, 0,
+          0, 0, 0, 0,
+          0, 0, 0, 0;
 
     const double px = x_state(0);
     const double py = x_state(1);
@@ -59,4 +62,19 @@ MatrixXd Tools::CalculateJacobian(const VectorXd& x_state) {
           py_d1 * det_d2, -px_d1 * det_d2, px_d1, py_d1;
 
     return Hj;
+}
+
+VectorXd Tools::CartesianToPolar(const VectorXd &x) {
+    const double px = x[0];
+    const double py = x[1];
+    const double vx = x[2];
+    const double vy = x[3];
+
+    const double rho = std::max(sqrt(px * px + py * py), 1e-6);
+    const double phi = fmod(atan(py / px), M_2_PI);
+    const double rho_dot = (px * vx + py * vy) / rho;
+
+    VectorXd polar(3);
+    polar << rho, phi, rho_dot;
+    return polar;
 }
