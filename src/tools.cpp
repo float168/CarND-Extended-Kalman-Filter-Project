@@ -78,3 +78,18 @@ VectorXd Tools::CartesianToPolar(const VectorXd &x) {
     polar << rho, phi, rho_dot;
     return polar;
 }
+
+VectorXd Tools::PolarToCartesian(const VectorXd &x) {
+    const double rho = x[0];
+    const double phi = x[1];
+    const double rhd = x[2];
+
+    const double px = rho * cos(phi);
+    const double py = rho * sin(phi);
+    const double vx = rhd * sin(phi);
+    const double vy = rhd * sin(phi);
+
+    VectorXd cartesian(3);
+    cartesian << px, py, vx, vy;
+    return cartesian;
+}

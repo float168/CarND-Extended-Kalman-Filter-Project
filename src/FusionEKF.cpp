@@ -75,17 +75,13 @@ void FusionEKF::ProcessMeasurement(const MeasurementPackage &measurement_pack) {
     ekf_.x_ = VectorXd(4);
 
     switch (type) {
-      case SensorType::RADAR: {
-        const double rho = measure[0];
-        const double phi = measure[1];
-
-        const double px = rho * cos(phi);
-        const double py = rho * sin(phi);
-
-        ekf_.x_ << px, py, 0, 0;
+      case SensorType::RADAR:
+      {
+        ekf_.x_ = Tools::PolarToCartesian(measure);
         break;
       }
-      case SensorType::LASER: {
+      case SensorType::LASER:
+      {
         ekf_.x_ << measure[0], measure[1], 0, 0;
         break;
       }

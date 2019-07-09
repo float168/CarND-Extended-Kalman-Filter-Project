@@ -31,6 +31,11 @@ class Tools {
    * A helper method to convert cartesian coord to polar coord.
    */
   static Eigen::VectorXd CartesianToPolar(const Eigen::VectorXd &x);
+
+  /**
+   * A helper method to convert polar coord to cartesian coord.
+   */
+  static Eigen::VectorXd PolarToCartesian(const Eigen::VectorXd &x);
 };
 
 #endif  // TOOLS_HPP_
