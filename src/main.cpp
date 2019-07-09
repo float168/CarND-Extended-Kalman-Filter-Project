@@ -2,8 +2,8 @@
 #include <uWS/uWS.h>
 #include <iostream>
 #include "json.hpp"
-#include "FusionEKF.h"
-#include "tools.h"
+#include "FusionEKF.hpp"
+#include "tools.hpp"
 
 using Eigen::MatrixXd;
 using Eigen::VectorXd;
@@ -68,7 +68,7 @@ int main() {
           iss >> sensor_type;
 
           if (sensor_type.compare("L") == 0) {
-            meas_package.sensor_type_ = MeasurementPackage::LASER;
+            meas_package.sensor_type_ = SensorType::LASER;
             meas_package.raw_measurements_ = VectorXd(2);
             float px;
             float py;
@@ -78,7 +78,7 @@ int main() {
             iss >> timestamp;
             meas_package.timestamp_ = timestamp;
           } else if (sensor_type.compare("R") == 0) {
-            meas_package.sensor_type_ = MeasurementPackage::RADAR;
+            meas_package.sensor_type_ = SensorType::RADAR;
             meas_package.raw_measurements_ = VectorXd(3);
             float ro;
             float theta;
