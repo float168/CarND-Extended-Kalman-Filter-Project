@@ -9,7 +9,7 @@ using std::cout;
 using std::endl;
 using std::vector;
 
-#define DEBUG_OUTPUT
+//#define DEBUG_OUTPUT
 
 /**
  * Constructor.

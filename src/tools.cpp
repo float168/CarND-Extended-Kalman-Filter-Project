@@ -70,9 +70,9 @@ VectorXd Tools::CartesianToPolar(const VectorXd &x) {
     const double vx = x[2];
     const double vy = x[3];
 
-    const double rho = std::max(sqrt(px * px + py * py), 1e-6);
-    const double phi = fmod(atan(py / px), M_2_PI);
-    const double rho_dot = (px * vx + py * vy) / rho;
+    const double rho = sqrt(px * px + py * py);
+    const double phi = atan2(py, px);
+    const double rho_dot = fabs(rho) < 1e-6 ? 0.0 : (px * vx + py * vy) / rho;
 
     VectorXd polar(3);
     polar << rho, phi, rho_dot;
@@ -92,4 +92,19 @@ VectorXd Tools::PolarToCartesian(const VectorXd &x) {
     VectorXd cartesian(3);
     cartesian << px, py, vx, vy;
     return cartesian;
+}
+
+VectorXd Tools::NormalizePolar(const VectorXd &x) {
+    VectorXd normed = x;
+
+    double phi = normed[1];
+    while (phi > M_PI) {
+        phi -= 2 * M_PI;
+    }
+    while (phi <= -M_PI) {
+        phi += 2 * M_PI;
+    }
+    normed(1) = phi;
+
+    return normed;
 }

@@ -31,28 +31,26 @@ void KalmanFilter::Predict() {
 }
 
 void KalmanFilter::Update(const VectorXd &z) {
-  const MatrixXd Ht = H_.transpose();
-  const MatrixXd S = H_ * P_ * Ht + R_;
-  const MatrixXd Si = S.inverse();
-  const MatrixXd K = P_ * Ht * Si;
-
-  const VectorXd y = z - H_ * x_;
-  x_ = x_ + K * y;
-
-  const int size = P_.rows();
-  P_ = (MatrixXd::Identity(size, size) - K * H_) * P_;
+  const VectorXd z_pred = H_ * x_;
+  const VectorXd y = z - z_pred;
+  UpdateCommon(y);
 }
 
 void KalmanFilter::UpdateEKF(const VectorXd &z) {
+  const VectorXd z_pred = Tools::CartesianToPolar(x_);
+  const VectorXd y = Tools::NormalizePolar(z - z_pred);
+  UpdateCommon(y);
+}
+
+void KalmanFilter::UpdateCommon(const VectorXd &y) {
   const MatrixXd Ht = H_.transpose();
   const MatrixXd S = H_ * P_ * Ht + R_;
   const MatrixXd Si = S.inverse();
   const MatrixXd K = P_ * Ht * Si;
 
-  const VectorXd hx = Tools::CartesianToPolar(x_);
-  const VectorXd y = z - hx;
   x_ += K * y;
 
   const int size = P_.rows();
-  P_ = (MatrixXd::Identity(size, size) - K * H_) * P_;
+  const MatrixXd I = MatrixXd::Identity(size, size);
+  P_ = (I - K * H_) * P_;
 }

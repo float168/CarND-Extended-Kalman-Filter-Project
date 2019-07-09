@@ -36,6 +36,11 @@ class Tools {
    * A helper method to convert polar coord to cartesian coord.
    */
   static Eigen::VectorXd PolarToCartesian(const Eigen::VectorXd &x);
+
+  /**
+   * A helper method to normalize radian expression of polar coord vector
+   */
+  static Eigen::VectorXd NormalizePolar(const Eigen::VectorXd &x);
 };
 
 #endif  // TOOLS_HPP_
